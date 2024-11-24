@@ -29,6 +29,8 @@ DB_NAME=
 npm run dev
 ```
 
+**Please ignore the hydration errors it is due to the next js 15 version i will fix it soon**
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Listing screen
