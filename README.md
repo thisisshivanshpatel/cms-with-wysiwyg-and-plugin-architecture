@@ -1,5 +1,36 @@
 <img src="./cms site.png" alt="cms site" width="100%">
 
+For setting up the project, run the following command:
+here we are using `--legacy-peer-deps` flag to install the dependencies because we are using Next.js 15 which is the latest version of Next.js and it has a breaking change in the peer dependencies.
+
+## Installation
+
+```bash
+npm i --legacy-peer-deps
+```
+
+## Configuration
+add the .env file in the root directory of the project and add the following content:
+
+```bash
+DB_USER=
+DB_HOST=
+DB_PASSWORD=
+DB_PORT=
+DB_NAME=
+```
+
+## Create the database
+ Navigate to the `db` folder and run the provided `sql query` to create the database.
+
+## Run the project
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
 ## Listing screen
 
 Here we can get all the created post list from here we can `Add Post` and `Edit Post` and `Read Post` also we can `delete` the post from here.
