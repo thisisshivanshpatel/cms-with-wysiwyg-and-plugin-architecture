@@ -40,6 +40,7 @@ const RichTextEditor = ({
           rel: "noopener noreferrer nofollow",
           target: "_blank",
         },
+        validate: (href) => /^https?:\/\//.test(href),
       }),
       Image.configure({
         allowBase64: true,
@@ -50,6 +51,17 @@ const RichTextEditor = ({
       attributes: {
         class:
           "prose prose-sm sm:prose max-w-none prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline focus:outline-none",
+      },
+      handleClick: (view, pos, event) => {
+        const target = event.target as HTMLElement;
+        const link = target.closest("a");
+
+        if (link instanceof HTMLAnchorElement) {
+          event.preventDefault();
+          window.open(link.href, "_blank", "noopener,noreferrer");
+          return true;
+        }
+        return false;
       },
     },
     onUpdate: ({ editor }) => {
@@ -76,6 +88,11 @@ const RichTextEditor = ({
     if (url === "") {
       editor.chain().focus().unsetLink().run();
       return;
+    }
+
+    let validUrl = url;
+    if (!/^https?:\/\//i.test(url)) {
+      validUrl = `https://${url}`;
     }
 
     // Checking if there's selected text
@@ -207,7 +224,7 @@ const RichTextEditor = ({
 
       <EditorContent
         editor={editor}
-        className="min-h-[300px] max-h-[300px] overflow-y-auto border p-2 bg-slate-50"
+        className="min-h-[300px] max-h-[300px] overflow-y-auto border p-2 bg-white"
       />
     </div>
   );
