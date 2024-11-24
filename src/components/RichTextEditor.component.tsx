@@ -16,7 +16,9 @@ import {
   AlignCenter,
   Link as LinkIcon,
   Image as ImageIcon,
+  Video,
 } from "lucide-react";
+import { VideoEmbed } from "@/plugins";
 
 const RichTextEditor = ({
   getHtmlContent,
@@ -48,6 +50,7 @@ const RichTextEditor = ({
           class: "max-w-[355px] max-h-[355px]",
         },
       }),
+      VideoEmbed,
     ],
     content: "",
     editorProps: {
@@ -80,6 +83,24 @@ const RichTextEditor = ({
     }
   }, [content, editor]);
 
+  const addVideo = () => {
+    if (!editor) return;
+
+    const url = window.prompt("Enter video URL (YouTube)");
+    if (url) {
+      editor
+        .chain()
+        .focus()
+        .insertContent({
+          type: "videoEmbed",
+          attrs: {
+            src: url,
+          },
+        })
+        .run();
+    }
+  };
+
   const addLink = () => {
     if (!editor) return;
 
@@ -100,7 +121,7 @@ const RichTextEditor = ({
 
     // Checking if there's selected text
     const selectedText = editor.state.selection.empty
-      ? url // If no text is selected, use the URL as link text
+      ? validUrl // If no text is selected, use the URL as link text
       : editor.state.doc.textBetween(
           editor.state.selection.from,
           editor.state.selection.to
@@ -211,6 +232,13 @@ const RichTextEditor = ({
           className="px-2 py-1 bg-gray-200 hover:bg-gray-300"
         >
           <ImageIcon size={16} />
+        </button>
+        <button
+          onClick={addVideo}
+          className="px-2 py-1 bg-gray-200 hover:bg-gray-300"
+          title="Embed Video"
+        >
+          <Video size={16} />
         </button>
       </div>
 
