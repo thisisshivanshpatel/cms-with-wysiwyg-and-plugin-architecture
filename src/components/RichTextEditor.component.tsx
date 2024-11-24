@@ -44,6 +44,9 @@ const RichTextEditor = ({
       }),
       Image.configure({
         allowBase64: true,
+        HTMLAttributes: {
+          class: "max-w-[355px] max-h-[355px]",
+        },
       }),
     ],
     content: "",
