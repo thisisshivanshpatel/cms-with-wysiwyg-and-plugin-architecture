@@ -6,9 +6,9 @@ import { MemoizePostCard } from "./PostCard.component";
 import { getPost } from "@/api";
 
 const ListPage = () => {
-  const [posts, setPosts] = React.useState([
-    { slug: "", title: "", content: { content: "" } },
-  ]);
+  const [posts, setPosts] = React.useState<
+    [{ slug: string; title: string; content: { content: string } }] | []
+  >([]);
 
   const fetchPosts = async () => {
     const res = await getPost();
@@ -32,13 +32,14 @@ const ListPage = () => {
           Add Post
         </button>
       </Link>
-      {posts.map((post) => (
-        <MemoizePostCard
-          key={post?.slug}
-          slug={post?.slug}
-          title={post?.title}
-        />
-      ))}
+      {posts?.length > 0 &&
+        posts.map((post) => (
+          <MemoizePostCard
+            key={post?.slug}
+            slug={post?.slug}
+            title={post?.title}
+          />
+        ))}
     </div>
   );
 };
